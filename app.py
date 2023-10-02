@@ -75,10 +75,10 @@ def forge():
 def index():
     user = User.query.first()
     movies = Movie.query.all()
-    return render_template('index.html', user=user, movies=movies)
+    return render_template('index.html', movies=movies)
 @app.route('/home')
 def hello():
-    return '<h1>Welcome to My Watchlist!' '\n' '欢迎来到我的 Watchlist！</h1><img src="http://helloflask.com/totoro.gif">'
+    return '<h1>Welcome to My Watchlist! <br> 欢迎来到我的观影列表！</h1><img src="http://helloflask.com/totoro.gif">'
 
 @app.route('/user/<name>')
 def user_page(name):
@@ -96,5 +96,13 @@ def test_url_for():
     print(url_for('test_url_for', num=2))  # 输出：/test?num=2
     return 'Test page'
 
+@app.errorhandler(404)  # 传入要处理的错误代码
+def page_not_found(e):  # 接受异常对象作为参数
+    user = User.query.first()
+    return render_template('404.html'), 404  # 返回模板和状态码
 
+@app.context_processor
+def inject_user():
+    user = User.query.first()
+    return dict(user=user)
 
