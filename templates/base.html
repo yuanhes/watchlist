@@ -23,8 +23,13 @@
     <nav>
         <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
+            {% if not current_user.is_authenticated %}
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            {% else %}
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
             <li><a href="{{ url_for('user_page', name=user.name) }}">User</a></li>
             <li><a href="{{ url_for('test_url_for') }}">Test</a></li>
+            {% endif %}
         </ul>
     </nav>
     {%block content %}{% endblock %}

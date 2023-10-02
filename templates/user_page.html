@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>User Page</h3>
+<form method="post">
+    <a> Your Name: {{ current_user.name }} </a>
+    <a class="btn" href="{{ url_for('settings') }}">Change</a>
+</form>
+{% endblock %} 
