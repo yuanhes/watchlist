@@ -22,6 +22,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # 关闭对模型修改的
 # 在扩展类实例化前加载配置
 db = SQLAlchemy(app)  # 初始化扩展，传入程序实例 app
 
+# 继承 UserMixin 类会让 User 类拥有几个用于判断认证状态的属性和方法
 from flask_login import UserMixin
 
 class User(db.Model, UserMixin):  # 表名将会是 user（自动生成，小写处理）
