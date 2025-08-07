@@ -11,4 +11,7 @@ nohup flask run >> nohup.out 2>&1 &
 systemctl start nginx
 systemctl enable nginx
 ```
-
+## command for deployment
+```
+gunicorn app:app -w 1 -b 0.0.0.0:5000
+```
