@@ -116,6 +116,17 @@ def hello():
 def user_page(name):
     return render_template('user_page.html')
 
+from flask_login import LoginManager
+
+login_manager = LoginManager(app)  # 实例化扩展类
+
+@login_manager.user_loader
+def load_user(user_id):  # 创建用户加载回调函数，接受用户 ID 作为参数
+    user = User.query.get(int(user_id))  # 用 ID 作为 User 模型的主键查询对应的用户
+    return user  # 返回用户对象
+
+login_manager.login_view = 'login'
+
 @app.route('/test')
 def test_url_for():
     # 下面是一些调用示例（请访问 http://localhost:5000/test 后在命令行窗口查看输出的 URL）：
@@ -197,17 +208,7 @@ def admin(username, password):
     db.session.commit()  # 提交数据库会话
     click.echo('Done.')
 
-from flask_login import LoginManager
-
-login_manager = LoginManager(app)  # 实例化扩展类
-
-@login_manager.user_loader
-def load_user(user_id):  # 创建用户加载回调函数，接受用户 ID 作为参数
-    user = User.query.get(int(user_id))  # 用 ID 作为 User 模型的主键查询对应的用户
-    return user  # 返回用户对象
-
 from flask_login import login_user
-# ...
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
