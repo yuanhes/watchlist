@@ -9,3 +9,4 @@ nohup.out
 htmlcov/
 .*.sw?
 venv/
+.flaskenv
